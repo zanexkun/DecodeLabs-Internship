@@ -76,25 +76,25 @@ python iris_classification.py
 
 Needs `scikit-learn`, `numpy`, `matplotlib`.
 
-## Project 3 - Tech Stack Recommender (Content-Based Filtering)
+## Project 3 - Tech Stack Recommender (Content Based Filtering)
 
-A recommendation engine that maps a user's skills to the closest-matching job roles, using
+A recommendation engine that maps a user's skills to the closest matching job roles, using
 TF-IDF vectorization and cosine similarity - no training, no model, just similarity math.
 
-Dataset (`raw_skills.csv`, hand-built) - 10 job roles, each represented as a string of the
+Dataset (`raw_skills.csv`, hand-built)  10 job roles, each represented as a string of the
 skills associated with it (e.g. Data Scientist: Python, SQL, Machine Learning, Statistics...).
 
 **Pipeline:**
 1. Fit `TfidfVectorizer` on the job roles' skill strings. This builds a shared vocabulary
-   and down-weights common skills (like Python, which appears across many roles) while
-   up-weighting rare, specific ones.
+   and down weights common skills (like Python, which appears across many roles) while
+   up weighting rare, specific ones.
 2. Take the user's input (comma-separated skills, minimum 3), clean and rejoin it into a
    single string in the same format as the job role rows.
-3. Transform the user's string using the **same already-fitted vectorizer** - not a new
+3. Transform the user's string using the **same already fitted vectorizer** not a new
    one. This is the part most tutorials get wrong: TF-IDF needs a shared vocabulary to
    compare against, so the user's input has to be scored against the vocabulary learned
    from the job roles, not its own.
-4. Compute cosine similarity between the user's vector and every job role's vector -
+4. Compute cosine similarity between the user's vector and every job role's vector.
    this measures the angle between them, not their size, so it isn't skewed by how many
    skills someone lists.
 5. Sort descending, return the top 3.
