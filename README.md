@@ -1,33 +1,28 @@
-# DecodeLabs Internship - AI Track
+# DecodeLabs Internship 
 
-Projects from the DecodeLabs AI internship (Batch 2026). Four projects over four weeks,
-moving from rule-based logic into supervised learning.
+Projects from the DecodeLabs AI internship 
 
-Python 3, run with `python filename.py`.
 
----
+ Project 1 - Rule-Based Chatbot
 
-## Project 1 - Rule-Based Chatbot
-
-A command-line chatbot that matches user input against a dictionary of predefined
-responses. No learning involved - the logic is written by hand, which is the point:
-it's the baseline you compare machine learning against.
+A command line chatbot that matches user input against a dictionary of predefined
+responses. No learning involved the logic is written by hand, which is the point
 
 Input is lowercased and stripped before matching so "Hello", "hello " and "HELLO"
 all hit the same key. Unrecognised input falls back to a default reply via
 `dict.get()`. Typing `exit` breaks the loop.
-
 **Run:**
 ```
 cd project-1-chatbot
 python chatbot.py
 ```
 
+
 **Limitation worth noting:** it only matches exact strings. "how r u" fails even
 though "how are you" works. Fixing that properly needs intent matching rather than
 a lookup table, which is where actual ML starts.
 
----
+
 
 ## Project 2 - Data Classification (Iris + KNN)
 
@@ -35,7 +30,6 @@ Supervised classification on the Iris dataset - 150 samples, 4 features, 3 balan
 classes. K-Nearest Neighbors as the main model.
 
 Pipeline: load → stratified 80/20 split → StandardScaler → KNN (k=5) → evaluate.
-The scaler is fitted on the training set only, so no test statistics leak in.
 
 **Results:**
 
@@ -51,26 +45,27 @@ Confusion matrix:
  [ 0  0 10]]
 ```
 
+
 One error out of 30. Setosa is perfectly separable and gets 10/10. The single
-mistake is a versicolor predicted as virginica - those two overlap in petal
+mistake is a versicolor predicted as virginica those two overlap in petal
 measurements. Same error read two ways: versicolor recall drops to 0.90, virginica
 precision drops to 0.91.
 
 **Extra experiments:**
 
-- **Choosing K** - used 5-fold cross-validation across k=1 to 30 instead of
+- Choosing K - used 5 fold cross validation across k=1 to 30 instead of
   defaulting to 5. Best K came out as 5 anyway, at 0.975 CV accuracy.
-- **Does scaling matter here?** - trained KNN with and without scaling. Identical
+- Does scaling matter here? trained KNN with and without scaling. Identical
   result, 0.9667 both ways. All four features are already in similar cm ranges, so
   standardizing doesn't reorder any neighbours. Scaling is still mandatory for
-  distance-based models in principle, but its measurable effect depends on whether
+  distance based models in principle, but its measurable effect depends on whether
   the feature ranges actually differ.
-- **Algorithm comparison** - KNN, Logistic Regression, Decision Tree and SVM all
+- Algorithm comparison - KNN, Logistic Regression, Decision Tree and SVM all
   tie at 0.9667, all making the same single error. When four different algorithms
-  plateau at the same number, the limit is the data, not the model.
+  plateau at the same number, the limit is the data not the model.
 
 **Caveat:** 30 test samples means one error is worth 3.3 percentage points, so these
-comparisons sit inside the noise. That's why K was picked with cross-validation
+comparisons sit inside the noise. That's why K was picked with cross validation
 rather than a single split.
 
 **Run:**
@@ -81,12 +76,5 @@ python iris_classification.py
 
 Needs `scikit-learn`, `numpy`, `matplotlib`.
 
----
 
-## Project 3
 
-Coming.
-
-## Project 4
-
-Coming.
