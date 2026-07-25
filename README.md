@@ -76,5 +76,53 @@ python iris_classification.py
 
 Needs `scikit-learn`, `numpy`, `matplotlib`.
 
+## Project 3 - Tech Stack Recommender (Content-Based Filtering)
+
+A recommendation engine that maps a user's skills to the closest-matching job roles, using
+TF-IDF vectorization and cosine similarity - no training, no model, just similarity math.
+
+Dataset (`raw_skills.csv`, hand-built) - 10 job roles, each represented as a string of the
+skills associated with it (e.g. Data Scientist: Python, SQL, Machine Learning, Statistics...).
+
+**Pipeline:**
+1. Fit `TfidfVectorizer` on the job roles' skill strings. This builds a shared vocabulary
+   and down-weights common skills (like Python, which appears across many roles) while
+   up-weighting rare, specific ones.
+2. Take the user's input (comma-separated skills, minimum 3), clean and rejoin it into a
+   single string in the same format as the job role rows.
+3. Transform the user's string using the **same already-fitted vectorizer** - not a new
+   one. This is the part most tutorials get wrong: TF-IDF needs a shared vocabulary to
+   compare against, so the user's input has to be scored against the vocabulary learned
+   from the job roles, not its own.
+4. Compute cosine similarity between the user's vector and every job role's vector -
+   this measures the angle between them, not their size, so it isn't skewed by how many
+   skills someone lists.
+5. Sort descending, return the top 3.
+
+**Example run:**
+```
+enter your skills separated by commas: Python, Docker, Machine Learning
+
+Based on your skills (Python Docker Machine Learning), here are your top matches:
+
+Data Scientist - 0.505
+ML Engineer - 0.485
+Cloud Architect - 0.223
+```
+
+Data Scientist and ML Engineer both share Python + Machine Learning with the input, so
+they correctly rank above Cloud Architect, which only overlaps on Docker.
+
+**Note on the dataset:** the internship materials referenced a `raw_skills.csv` that
+wasn't available in the shared resources, so this one was built by hand to match the
+job roles and skills used in the project brief.
+
+**Run:**
+```
+cd project-3-tech-stack-recommender
+python tech_stack_recommender.py
+```
+
+Needs `pandas`, `scikit-learn`. Keep `raw_skills.csv` in the same folder as the script.
 
 
