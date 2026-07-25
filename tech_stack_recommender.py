@@ -1,0 +1,28 @@
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+
+data = pd.read_csv("raw_skills.csv")  # keep raw_skills.csv in the same folder as this script
+model = TfidfVectorizer()
+X = model.fit_transform(data.skills)
+user_inputs = input('enter your skills separated by commas: ')
+user_split = user_inputs.split(',')
+user_split_clean = []
+for item in user_split:
+    clean_item = item.strip()
+    user_split_clean.append(clean_item)
+
+if len(user_split_clean) < 3:
+    print("Please enter at least 3 skills.")
+else:
+    user_final = ' '.join(user_split_clean)
+    user_vector = model.transform([user_final])
+    cs = cosine_similarity(user_vector, X)
+    paired = list(zip(data.job_role, cs[0]))
+    sorted_pairs = sorted(paired, key=lambda x: x[1], reverse=True)
+    top_3 = sorted_pairs[:3]
+
+    print(f"\nBased on your skills ({user_final}), here are your top matches:\n")
+    for role, score in top_3:
+        print(role, '-', round(score, 3))
