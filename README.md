@@ -13,7 +13,7 @@ all hit the same key. Unrecognised input falls back to a default reply via
 `dict.get()`. Typing `exit` breaks the loop.
 **Run:**
 ```
-cd project-1-chatbot
+
 python chatbot.py
 ```
 
@@ -70,8 +70,8 @@ rather than a single split.
 
 **Run:**
 ```
-cd project-2-iris-classification
-python iris_classification.py
+
+python iris_classification_decodelab.py
 ```
 
 Needs `scikit-learn`, `numpy`, `matplotlib`.
@@ -119,7 +119,7 @@ job roles and skills used in the project brief.
 
 **Run:**
 ```
-cd project-3-tech-stack-recommender
+
 python tech_stack_recommender.py
 ```
 
